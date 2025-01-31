@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        // Versión de ECMAScript que se va a utilizar
+        "target": "ES2021",
+        // Sistema de módulos (CommonJS para Node.js)
+        "module": "CommonJS",
+        // Especificamos que librerías usar (ES2021, DOM si fuera necesario, etc.)
+        "lib": ["ES2021"],
+        // Carpeta de salida de la compilación
+        "outDir": "dist",
+        // Carpeta raíz de nuestro código TypeScript
+        "rootDir": "src",
+        // Otras configuraciones de control estricto
+        "strict": true,
+        // Habilitar la interoperabilidad de módulos ES
+        "esModuleInterop": true,
+        // Asegura el uso consistente de mayúsculas y minúsculas en los imports
+        "forceConsistentCasingInFileNames": true,
+        // Permite saltar comprobaciones de tipos en archivos de declaración
+        "skipLibCheck": true
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "**/*.spec.ts"]
+}

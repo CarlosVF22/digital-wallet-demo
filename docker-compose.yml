@@ -10,7 +10,7 @@ services:
             POSTGRES_USER: user
             POSTGRES_PASSWORD: password
         ports:
-            - "5433:5432"
+            - "5432:5432"
         healthcheck:
             test:
                 [
@@ -22,10 +22,8 @@ services:
             retries: 3
 
     app:
-        # Usa el Dockerfile existente
         build: .
         container_name: epayco-wallet-app
-        # Mapeamos el puerto 3000 de docker al 3000 de tu máquina
         ports:
             - "3000:3000"
         depends_on:
@@ -37,9 +35,18 @@ services:
             DB_USER: user
             DB_PASSWORD: password
             DB_NAME: epayco_wallet
-        # Montamos el código fuente como volumen
         volumes:
             - .:/app
-            # Montamos también node_modules para que no se pisen con las de la imagen
-            - /app/node_modules
         command: "npm run dev"
+
+    adminer:
+        image: adminer
+        container_name: epayco-adminer
+        depends_on:
+            - db
+        restart: always
+        ports:
+            - "8080:8080"
+
+volumes:
+    app:

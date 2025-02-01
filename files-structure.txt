@@ -4,6 +4,9 @@ epayco-wallet/
 ├── package.json
 ├── tsconfig.json
 ├── README.md
+├── config/
+│   ├── database.ts
+│   └── soapDefinitions.ts
 │
 ├── migrations/
 │   └── (aquí se ubicarán las migraciones de Sequelize en caso de utilizarlas)
@@ -12,10 +15,6 @@ epayco-wallet/
 │   └── (aquí se ubicarán los seeders de Sequelize si fuese necesario)
 │
 ├── src/
-│   ├── config/
-│   │   ├── database.ts
-│   │   └── soapDefinitions.ts
-│   │  
 │   ├── controllers/
 │   │   ├── rest/
 │   │   │   ├── clientController.ts

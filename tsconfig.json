@@ -19,6 +19,6 @@
         // Permite saltar comprobaciones de tipos en archivos de declaración
         "skipLibCheck": true
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "src/config/**/*"],
     "exclude": ["node_modules", "**/*.spec.ts"]
 }

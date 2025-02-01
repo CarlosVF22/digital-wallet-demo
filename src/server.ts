@@ -1,5 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
+import restRoutes from "./routes/rest";
+import { initSoapServer } from "./routes/soap/soapServer";
 
 // Importar tus rutas
 // import { clientRoutes } from './routes/rest/client.routes';
@@ -15,13 +17,15 @@ export function startServer() {
     app.use(cors());
     app.use(express.json());
 
-    // Rutas REST (ejemplo)
-    // app.use('/api/client', clientRoutes);
-    // app.use('/api/wallet', walletRoutes);
+    // Rutas REST
+    app.use("/api/v1", restRoutes);
+
+    // servidor SOAP
+    initSoapServer(app);
 
     // Endpoint de prueba
     app.get("/", (req: Request, res: Response) => {
-        res.json({ message: "¡Servidor en funcionamiento !!!!!" });
+        res.json({ message: "¡Servidor en funcionamiento !" });
     });
 
     // Iniciamos el servidor

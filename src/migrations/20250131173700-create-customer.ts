@@ -14,7 +14,7 @@ export default {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            names: {
+            name: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },

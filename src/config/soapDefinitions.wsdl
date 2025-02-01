@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="MyService"
+             targetNamespace="http://www.example.org/myService/"
+             xmlns:tns="http://www.example.org/myService/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/myService/">
+      <!-- Elemento para la solicitud de registro de customer -->
+      <xsd:element name="registerCustomer">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="document" type="xsd:string"/>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element name="email" type="xsd:string"/>
+            <xsd:element name="phone" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- Elemento para la respuesta del registro de customer -->
+      <xsd:element name="registerCustomerResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="success" type="xsd:boolean"/>
+            <xsd:element name="cod_error" type="xsd:string"/>
+            <xsd:element name="message_error" type="xsd:string"/>
+            <xsd:element name="data" type="xsd:string" minOccurs="0"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+
+  <!-- Mensajes -->
+  <wsdl:message name="registerCustomerRequest">
+    <wsdl:part name="parameters" element="tns:registerCustomer"/>
+  </wsdl:message>
+  <wsdl:message name="registerCustomerResponse">
+    <wsdl:part name="parameters" element="tns:registerCustomerResponse"/>
+  </wsdl:message>
+
+  <!-- Port Type -->
+  <wsdl:portType name="MyPortType">
+    <wsdl:operation name="registerCustomer">
+      <wsdl:input message="tns:registerCustomerRequest"/>
+      <wsdl:output message="tns:registerCustomerResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <!-- Binding -->
+  <wsdl:binding name="MyBinding" type="tns:MyPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="registerCustomer">
+      <soap:operation soapAction="registerCustomer"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <!-- Service -->
+  <wsdl:service name="MyService">
+    <wsdl:port name="MyPort" binding="tns:MyBinding">
+      <soap:address location="http://localhost:3000/soap"/>
+    </wsdl:port>
+  </wsdl:service>
+</definitions>

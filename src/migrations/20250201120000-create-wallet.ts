@@ -4,30 +4,27 @@ import { QueryInterface, DataTypes } from "sequelize";
 
 export default {
     async up(queryInterface: QueryInterface) {
-        await queryInterface.createTable("Customers", {
+        await queryInterface.createTable("Wallets", {
             id: {
                 type: DataTypes.BIGINT,
                 autoIncrement: true,
                 primaryKey: true,
             },
-            document: {
-                type: DataTypes.STRING,
+            customerId: {
+                type: DataTypes.BIGINT,
                 allowNull: false,
+                references: {
+                    model: "Customers",
+                    key: "id",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
             },
-            name: {
-                type: DataTypes.STRING,
+            balance: {
+                type: DataTypes.DECIMAL(10, 2),
                 allowNull: false,
+                defaultValue: 0.0,
             },
-            email: {
-                type: DataTypes.STRING,
-                allowNull: false,
-                unique: true,
-            },
-            phone: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-
             createdAt: {
                 allowNull: false,
                 type: DataTypes.DATE,
@@ -42,6 +39,6 @@ export default {
     },
 
     async down(queryInterface: QueryInterface) {
-        await queryInterface.dropTable("Customers");
+        await queryInterface.dropTable("Wallets");
     },
 };

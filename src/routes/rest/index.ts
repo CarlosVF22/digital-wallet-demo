@@ -1,10 +1,10 @@
 import { Router } from "express";
 import customerRoutes from "./customer.routes";
-// import walletRoutes from './wallet.routes'; // Si ya tienes rutas para wallet
+import walletRoutes from "./wallet.routes";
 
 const router = Router();
 
 router.use("/customer", customerRoutes);
-// router.use('/wallet', walletRoutes); // Puedes agregar otras rutas según convenga
+router.use("/wallet", walletRoutes);
 
 export default router;

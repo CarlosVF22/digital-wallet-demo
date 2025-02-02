@@ -18,12 +18,8 @@ export async function connectDB(): Promise<void> {
     try {
         await sequelize.authenticate();
         console.log("Conexión a la base de datos establecida correctamente.");
-
-        // Opcionalmente, si no usas migraciones y quieres que Sequelize cree las tablas:
-        // await sequelize.sync({ force: false });
-        // console.log('¡Tablas sincronizadas!');
     } catch (error) {
         console.error("No se pudo conectar a la base de datos:", error);
-        process.exit(1); // Termina la app si la conexión falla
+        process.exit(1);
     }
 }

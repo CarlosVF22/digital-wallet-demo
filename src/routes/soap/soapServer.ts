@@ -3,6 +3,7 @@ import * as soap from "soap";
 import fs from "fs";
 import path from "path";
 import { customerSoapController } from "../../controllers/soap/customerSoapController";
+import { walletSoapController } from "../../controllers/soap/walletSoapController";
 
 export function initSoapServer(app: express.Application) {
     const wsdlPath = path.resolve(
@@ -15,6 +16,7 @@ export function initSoapServer(app: express.Application) {
         MyService: {
             MyPort: {
                 registerCustomer: customerSoapController.registryCustomer,
+                rechargeWallet: walletSoapController.rechargeWallet,
             },
         },
     };

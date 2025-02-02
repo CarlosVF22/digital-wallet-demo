@@ -2,6 +2,8 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import restRoutes from "./routes/rest";
 import { initSoapServer } from "./routes/soap/soapServer";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./config/swagger";
 
 export function startServer() {
     const app: Application = express();
@@ -14,6 +16,9 @@ export function startServer() {
 
     // Rutas REST
     app.use("/api/v1", restRoutes);
+
+    // Servir la documentación Swagger en /api-docs
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
     // servidor SOAP
     initSoapServer(app);

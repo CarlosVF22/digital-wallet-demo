@@ -19,8 +19,6 @@ export const walletController = {
                 client.rechargeWallet(
                     { document, phone, value },
                     (err: any, result: any) => {
-                        console.log("Result from SOAP service:", result);
-                        console.log("Error from SOAP service:", err);
                         if (err) {
                             return res.status(500).json({
                                 success: false,

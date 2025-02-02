@@ -1,5 +1,9 @@
 # Guía para Ejecutar el Proyecto
 
+Este proyecto fue creado por Carlos Eduardo Vasquez Florez para la prueba técnica de `Desarrollador Backend NodeJs` para la empresa Epayco por intermedio de Interfell.
+
+Este proyecto fue desarrollado con TypeScript, NodeJs, Sequelize ORM, Swagger, API REST, SOAP, ExpressJs, ReSend para el envío de correos electrónicos y contenedores Docker para su ejecución (preferiblemente).
+
 ## Clonar el Repositorio
 
 Ejecutar https://github.com/CarlosVF22/digital-wallet-demo.git
@@ -30,6 +34,7 @@ Una vez que la aplicación esté en funcionamiento, podrás acceder a ella en:
 -   **API REST**: `http://localhost:3000/api/v1`
 -   **Servidor SOAP**: `http://localhost:3000/soap`
 -   **Adminer**: `http://localhost:8080`
+-   **Documentación SWAGGER**: `http://localhost:3000/api-docs`
 
 ## Si prefieres no utilizar Docker
 
@@ -55,3 +60,12 @@ Si estas utilizando Docker, recuerda ejecutar el comando en la terminal del cont
 
 -   `npm run dev` para desarrollo.
 -   `npm run start` para producción.
+
+### Acceso a la Aplicación
+
+Una vez que la aplicación esté en funcionamiento, podrás acceder a ella en:
+
+-   **API REST**: `http://localhost:3000/api/v1`
+-   **Servidor SOAP**: `http://localhost:3000/soap`
+-   **Adminer**: `http://localhost:8080`
+-   **Documentación SWAGGER**: `http://localhost:3000/api-docs`

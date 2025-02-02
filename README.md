@@ -8,7 +8,7 @@ Ejecutar https://github.com/CarlosVF22/digital-wallet-demo.git
 
 1. asegúrate de tener Docker instalado y ejecuta:
 
-docker-compose up --build
+`docker-compose up --build`
 
 Esto levantará todos los servicios definidos en el archivo `docker-compose.yml`.
 
@@ -18,6 +18,10 @@ Esto levantará todos los servicios definidos en el archivo `docker-compose.yml`
 
 -   migraciones en desarrollo: `npx sequelize-cli db:migrate --env development`
 -   migraciones en producción: `npx sequelize-cli db:migrate --env production`
+
+4. Cargar datos de prueba (seeders)
+
+`npx sequelize-cli db:seed --seed 20250202151800-demo-customers-wallets.ts`
 
 ### Acceso a la Aplicación
 
@@ -34,9 +38,20 @@ Una vez que la aplicación esté en funcionamiento, podrás acceder a ella en:
 -   [Node.js](https://nodejs.org/) (versión 22.13 o superior)
 -   [PostgreSQL](https://www.postgresql.org/) (16.6 o superior)
 
-2. Tenemos la opción de ejecutar migraciones según el ambiente de base de datos que estemos utilizando.
+2. Crear base de datos, por defecto utiliza [epayco_wallet]
+
+3. Tenemos la opción de ejecutar migraciones según el ambiente de base de datos que estemos utilizando.
 
 Si estas utilizando Docker, recuerda ejecutar el comando en la terminal del contenedor.
 
--   migraciones en desarrollo: npx sequelize-cli db:migrate --env development
--   migraciones en producción: npx sequelize-cli db:migrate --env production
+-   migraciones en desarrollo: `npx sequelize-cli db:migrate --env development`
+-   migraciones en producción: `npx sequelize-cli db:migrate --env production`
+
+4. Cargar datos de prueba (seeders)
+
+`npx sequelize-cli db:seed --seed 20250202151800-demo-customers-wallets.ts`
+
+5. Ejecutar:
+
+-   `npm run dev` para desarrollo.
+-   `npm run start` para producción.

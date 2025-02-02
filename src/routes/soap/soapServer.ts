@@ -20,6 +20,7 @@ export function initSoapServer(app: express.Application) {
                 rechargeWallet: walletSoapController.rechargeWallet,
                 initiatePayment: paymentSoapController.initiatePayment,
                 confirmPayment: paymentSoapController.confirmPayment,
+                consultBalance: walletSoapController.consultBalance,
             },
         },
     };

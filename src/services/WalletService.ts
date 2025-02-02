@@ -48,3 +48,26 @@ export async function rechargeWallet(data: RechargeData) {
         updatedAt: updatedWallet.updatedAt,
     };
 }
+
+export async function consultBalance(document: string, phone: string) {
+    // Buscar el cliente por documento y teléfono
+    const customer = await Customer.findOne({ where: { document, phone } });
+    if (!customer) {
+        throw new Error("Customer not found");
+    }
+
+    // Buscar la billetera asociada al cliente (usando customerId)
+    const wallet = await Wallet.findOne({
+        where: { customerId: customer.getDataValue("id") },
+    });
+    if (!wallet) {
+        throw new Error("Wallet not found");
+    }
+
+    // Retornar la información relevante del saldo
+    return {
+        balance: wallet.getDataValue("balance"),
+        createdAt: wallet.getDataValue("createdAt"),
+        updatedAt: wallet.getDataValue("updatedAt"),
+    };
+}

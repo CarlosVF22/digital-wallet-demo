@@ -1,4 +1,4 @@
-import { rechargeWallet } from "../../services/WalletService";
+import { rechargeWallet, consultBalance } from "../../services/WalletService";
 
 export const walletSoapController = {
     /**
@@ -90,6 +90,75 @@ export const walletSoapController = {
                         cod_error: "05",
                         message_error:
                             error.message || "Error recharging wallet",
+                        data: null,
+                    })
+                );
+            });
+    },
+    /**
+     * SOAP method to consult wallet balance.
+     * Expects an object with fields: document and phone.
+     * Returns an object { success, cod_error, message, data } via callback.
+     */
+    consultBalance(
+        args: any,
+        callback?: (result: any) => void,
+        options?: any,
+        extraHeaders?: any
+    ): void {
+        console.log("Received args in consultBalance:", args);
+
+        if (!args) {
+            return (
+                callback &&
+                callback({
+                    success: false,
+                    cod_error: "01",
+                    message: "No arguments provided",
+                    data: null,
+                })
+            );
+        }
+
+        // En ocasiones la carga útil puede venir anidada en una propiedad con el mismo nombre
+        let payload = args;
+        if (!payload.document && payload.consultBalance) {
+            payload = payload.consultBalance;
+        }
+
+        const { document, phone } = payload;
+        if (!document || !phone) {
+            return (
+                callback &&
+                callback({
+                    success: false,
+                    cod_error: "02",
+                    message: "Both document and phone are required",
+                    data: null,
+                })
+            );
+        }
+
+        consultBalance(document, phone)
+            .then((balanceInfo) => {
+                return (
+                    callback &&
+                    callback({
+                        success: true,
+                        cod_error: "00",
+                        message: "Balance retrieved successfully",
+                        // Para evitar problemas con la serialización XML, podemos enviar el objeto como JSON
+                        data: JSON.stringify(balanceInfo),
+                    })
+                );
+            })
+            .catch((error: any) => {
+                return (
+                    callback &&
+                    callback({
+                        success: false,
+                        cod_error: "03",
+                        message: error.message || "Error retrieving balance",
                         data: null,
                     })
                 );

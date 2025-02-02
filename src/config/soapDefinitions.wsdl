@@ -92,11 +92,31 @@
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
+  <!-- Operation: Consult Balance -->
+  <xsd:element name="consultBalance">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="document" type="xsd:string"/>
+        <xsd:element name="phone" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="consultBalanceResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="success" type="xsd:boolean"/>
+        <xsd:element name="cod_error" type="xsd:string"/>
+        <xsd:element name="message" type="xsd:string"/>
+        <xsd:element name="data" type="xsd:string" minOccurs="0"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
   
   <!-- Messages -->
   <wsdl:message name="registerCustomerRequest">
     <wsdl:part name="parameters" element="tns:registerCustomer"/>
   </wsdl:message>
+
   <wsdl:message name="registerCustomerResponse">
     <wsdl:part name="parameters" element="tns:registerCustomerResponse"/>
   </wsdl:message>
@@ -104,6 +124,7 @@
   <wsdl:message name="rechargeWalletRequest">
     <wsdl:part name="parameters" element="tns:rechargeWallet"/>
   </wsdl:message>
+
   <wsdl:message name="rechargeWalletResponse">
     <wsdl:part name="parameters" element="tns:rechargeWalletResponse"/>
   </wsdl:message>
@@ -111,6 +132,7 @@
   <wsdl:message name="initiatePaymentRequest">
     <wsdl:part name="parameters" element="tns:initiatePayment"/>
   </wsdl:message>
+
   <wsdl:message name="initiatePaymentResponse">
     <wsdl:part name="parameters" element="tns:initiatePaymentResponse"/>
   </wsdl:message>
@@ -118,8 +140,17 @@
   <wsdl:message name="confirmPaymentRequest">
     <wsdl:part name="parameters" element="tns:confirmPayment"/>
   </wsdl:message>
+
   <wsdl:message name="confirmPaymentResponse">
     <wsdl:part name="parameters" element="tns:confirmPaymentResponse"/>
+  </wsdl:message>
+
+  <wsdl:message name="consultBalanceRequest">
+    <wsdl:part name="parameters" element="tns:consultBalance"/>
+  </wsdl:message>
+
+  <wsdl:message name="consultBalanceResponse">
+    <wsdl:part name="parameters" element="tns:consultBalanceResponse"/>
   </wsdl:message>
   
   <!-- Port Type -->
@@ -139,6 +170,10 @@
     <wsdl:operation name="confirmPayment">
       <wsdl:input message="tns:confirmPaymentRequest"/>
       <wsdl:output message="tns:confirmPaymentResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="consultBalance">
+      <wsdl:input message="tns:consultBalanceRequest"/>
+      <wsdl:output message="tns:consultBalanceResponse"/>
     </wsdl:operation>
   </wsdl:portType>
   
@@ -183,6 +218,17 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+
+    <wsdl:operation name="consultBalance">
+      <soap:operation soapAction="consultBalance"/>
+    <wsdl:input>
+      <soap:body use="literal"/>
+    </wsdl:input>
+    <wsdl:output>
+      <soap:body use="literal"/>
+    </wsdl:output>
+    
+  </wsdl:operation>
 
   </wsdl:binding>
   

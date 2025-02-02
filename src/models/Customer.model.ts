@@ -1,19 +1,9 @@
-// src/models/Customer.model.ts
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/database";
-
-// Interfaz para las propiedades que tiene el cliente
-export interface CustomerAttributes {
-    id: number;
-    document: string;
-    name: string;
-    email: string;
-    phone: string;
-}
-
-// Interfaz para la creación (id es opcional ya que es autogenerado)
-export interface CustomerCreationAttributes
-    extends Optional<CustomerAttributes, "id"> {}
+import {
+    CustomerAttributes,
+    CustomerCreationAttributes,
+} from "../interfaces/customer.interface";
 
 class Customer
     extends Model<CustomerAttributes, CustomerCreationAttributes>

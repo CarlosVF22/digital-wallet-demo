@@ -8,11 +8,18 @@ interface CustomerData {
 }
 
 export async function registerCustomer(CustomerData: CustomerData) {
-    const existing = await Customer.findOne({
+    const existingEmail = await Customer.findOne({
         where: { email: CustomerData.email },
     });
-    if (existing) {
-        throw new Error("El cliente ya existe");
+    if (existingEmail) {
+        throw new Error("El email ya existe");
+    }
+
+    const existingPhone = await Customer.findOne({
+        where: { phone: CustomerData.phone },
+    });
+    if (existingPhone) {
+        throw new Error("El número de teléfono ya existe");
     }
 
     // Crear y retornar el nuevo Customer

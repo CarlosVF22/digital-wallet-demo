@@ -51,6 +51,27 @@
     </xsd:element>
     </xsd:schema>
   </wsdl:types>
+
+  <!-- Operation: Initiate Payment -->
+<xsd:element name="initiatePayment">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element name="document" type="xsd:string"/>
+      <xsd:element name="phone" type="xsd:string"/>
+      <xsd:element name="value" type="xsd:decimal"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:element>
+<xsd:element name="initiatePaymentResponse">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element name="success" type="xsd:boolean"/>
+      <xsd:element name="cod_error" type="xsd:string"/>
+      <xsd:element name="message" type="xsd:string"/>
+      <xsd:element name="data" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:element>
   
   <!-- Messages -->
   <wsdl:message name="registerCustomerRequest">
@@ -66,6 +87,13 @@
   <wsdl:message name="rechargeWalletResponse">
     <wsdl:part name="parameters" element="tns:rechargeWalletResponse"/>
   </wsdl:message>
+
+  <wsdl:message name="initiatePaymentRequest">
+    <wsdl:part name="parameters" element="tns:initiatePayment"/>
+  </wsdl:message>
+  <wsdl:message name="initiatePaymentResponse">
+    <wsdl:part name="parameters" element="tns:initiatePaymentResponse"/>
+  </wsdl:message> 
   
   <!-- Port Type -->
   <wsdl:portType name="MyPortType">
@@ -76,6 +104,10 @@
     <wsdl:operation name="rechargeWallet">
       <wsdl:input message="tns:rechargeWalletRequest"/>
       <wsdl:output message="tns:rechargeWalletResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="initiatePayment">
+      <wsdl:input message="tns:initiatePaymentRequest"/>
+      <wsdl:output message="tns:initiatePaymentResponse"/>
     </wsdl:operation>
   </wsdl:portType>
   
@@ -100,6 +132,17 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+
+    <wsdl:operation name="initiatePayment">
+      <soap:operation soapAction="initiatePayment"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
   </wsdl:binding>
   
   <!-- Service -->

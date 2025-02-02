@@ -3,7 +3,6 @@ import { customerController } from "../../controllers/rest/customerRestControlle
 
 const router = Router();
 
-// Definir la ruta para el registro de clientes vía REST
 router.post("/register", customerController.registerCustomer);
 router.get("/test", (req, res) => {
     res.json({ message: "¡Ruta de prueba!" });

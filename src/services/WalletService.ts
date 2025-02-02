@@ -40,7 +40,6 @@ export async function rechargeWallet(data: RechargeData) {
     // Obtener la billetera actualizada
     const updatedWallet = wallet.toJSON();
 
-    // Retornar sólo los campos necesarios para la respuesta SOAP
     return {
         id: updatedWallet.id,
         customerId: updatedWallet.customerId,

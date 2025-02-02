@@ -3,7 +3,6 @@ import * as soap from "soap";
 export const paymentController = {
     async initiatePayment(req: any, res: any) {
         const { document, phone, value } = req.body;
-        // Asegúrate de que SOAP_URL esté definido en tu .env (ejemplo: SOAP_URL=http://localhost:3000/soap)
         const url = `${process.env.SOAP_URL}?wsdl`;
 
         try {

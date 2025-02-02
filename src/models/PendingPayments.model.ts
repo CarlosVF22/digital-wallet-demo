@@ -42,7 +42,7 @@ PendingPayment.init(
             type: DataTypes.BIGINT,
             allowNull: false,
             references: {
-                model: "Customers", // Nombre de la tabla de clientes
+                model: "Customers",
                 key: "id",
             },
             onUpdate: "CASCADE",

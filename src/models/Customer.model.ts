@@ -1,13 +1,13 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/database";
 import {
-    CustomerAttributes,
-    CustomerCreationAttributes,
+    ICustomer,
+    ICustomerCreationAttributes,
 } from "../interfaces/customer.interface";
 
 class Customer
-    extends Model<CustomerAttributes, CustomerCreationAttributes>
-    implements CustomerAttributes
+    extends Model<ICustomer, ICustomerCreationAttributes>
+    implements ICustomer
 {
     public id!: number;
     public document!: string;

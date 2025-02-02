@@ -1,7 +1,6 @@
-// src/interfaces/customer.interface.ts
 import { Optional } from "sequelize";
 
-export interface CustomerAttributes {
+export interface ICustomer {
     id: number;
     document: string;
     name: string;
@@ -9,5 +8,5 @@ export interface CustomerAttributes {
     phone: string;
 }
 
-export interface CustomerCreationAttributes
-    extends Optional<CustomerAttributes, "id"> {}
+export interface ICustomerCreationAttributes
+    extends Optional<ICustomer, "id"> {}

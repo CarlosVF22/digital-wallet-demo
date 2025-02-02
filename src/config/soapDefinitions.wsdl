@@ -52,26 +52,46 @@
     </xsd:schema>
   </wsdl:types>
 
-  <!-- Operation: Initiate Payment -->
-<xsd:element name="initiatePayment">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element name="document" type="xsd:string"/>
-      <xsd:element name="phone" type="xsd:string"/>
-      <xsd:element name="value" type="xsd:decimal"/>
-    </xsd:sequence>
-  </xsd:complexType>
-</xsd:element>
-<xsd:element name="initiatePaymentResponse">
-  <xsd:complexType>
-    <xsd:sequence>
-      <xsd:element name="success" type="xsd:boolean"/>
-      <xsd:element name="cod_error" type="xsd:string"/>
-      <xsd:element name="message" type="xsd:string"/>
-      <xsd:element name="data" type="xsd:string" minOccurs="0"/>
-    </xsd:sequence>
-  </xsd:complexType>
-</xsd:element>
+    <!-- Operation: Initiate Payment -->
+  <xsd:element name="initiatePayment">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="document" type="xsd:string"/>
+        <xsd:element name="phone" type="xsd:string"/>
+        <xsd:element name="value" type="xsd:decimal"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="initiatePaymentResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="success" type="xsd:boolean"/>
+        <xsd:element name="cod_error" type="xsd:string"/>
+        <xsd:element name="message" type="xsd:string"/>
+        <xsd:element name="data" type="xsd:string" minOccurs="0"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Operation: Confirm Payment -->
+  <xsd:element name="confirmPayment">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="sessionId" type="xsd:string"/>
+        <xsd:element name="token" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="confirmPaymentResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="success" type="xsd:boolean"/>
+        <xsd:element name="cod_error" type="xsd:string"/>
+        <xsd:element name="message" type="xsd:string"/>
+        <xsd:element name="data" type="xsd:string" minOccurs="0"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
   
   <!-- Messages -->
   <wsdl:message name="registerCustomerRequest">
@@ -93,7 +113,14 @@
   </wsdl:message>
   <wsdl:message name="initiatePaymentResponse">
     <wsdl:part name="parameters" element="tns:initiatePaymentResponse"/>
-  </wsdl:message> 
+  </wsdl:message>
+
+  <wsdl:message name="confirmPaymentRequest">
+    <wsdl:part name="parameters" element="tns:confirmPayment"/>
+  </wsdl:message>
+  <wsdl:message name="confirmPaymentResponse">
+    <wsdl:part name="parameters" element="tns:confirmPaymentResponse"/>
+  </wsdl:message>
   
   <!-- Port Type -->
   <wsdl:portType name="MyPortType">
@@ -108,6 +135,10 @@
     <wsdl:operation name="initiatePayment">
       <wsdl:input message="tns:initiatePaymentRequest"/>
       <wsdl:output message="tns:initiatePaymentResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="confirmPayment">
+      <wsdl:input message="tns:confirmPaymentRequest"/>
+      <wsdl:output message="tns:confirmPaymentResponse"/>
     </wsdl:operation>
   </wsdl:portType>
   
@@ -135,6 +166,16 @@
 
     <wsdl:operation name="initiatePayment">
       <soap:operation soapAction="initiatePayment"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="confirmPayment">
+      <soap:operation soapAction="confirmPayment"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>

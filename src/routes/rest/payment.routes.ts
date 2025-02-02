@@ -6,6 +6,6 @@ const router = Router();
 // Ruta para iniciar el pago
 router.post("/initiate", paymentController.initiatePayment);
 
-// router.post("/confirm", paymentController.confirmPayment);
+router.get("/confirm", paymentController.confirmPayment);
 
 export default router;

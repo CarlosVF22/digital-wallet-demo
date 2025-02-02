@@ -4,6 +4,7 @@ import PendingPayment from "../models/PendingPayments.model";
 import { generateToken } from "../utils/tokenGenerator";
 import { sendEmail } from "../utils/emailSender";
 import { v4 as uuidv4 } from "uuid";
+import Payment from "../models/Payment.model";
 
 interface PaymentData {
     document: string;
@@ -62,17 +63,17 @@ export async function initiatePayment(data: PaymentData) {
     const email = customer.getDataValue("email");
     const subject = "Este es tu token de confirmación de pago";
     const body = `
-    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-        <h2 style="color: #4CAF50;">Confirmación de Pago</h2>
+    <div>
+        <h2>Confirmación de Pago</h2>
         <p>Hola,</p>
         <p>Gracias por tu compra. Aquí tienes tu token de confirmación de pago:</p>
-        <p style="font-size: 1.2em; font-weight: bold; color: #FF5722;">${token}</p>
-                <p>Por favor, utiliza el siguiente ID de sesión para confirmar tu compra:</p>
-        <p style="font-size: 1.2em; font-weight: bold; color: #FF5722;">${sessionId}</p>
+        <p>${token}</p>
+        <p>Por favor, utiliza el siguiente link para confirmar tu compra:</p>
+        <a href="http://localhost:3000/api/v1/payment/confirm?token=${token}&sessionId=${sessionId}">Confirmar Pago</a>
         <p>Si tienes alguna pregunta, no dudes en contactarnos.</p>
         <p>Gracias,</p>
     </div>
-`;
+    `;
     await sendEmail(email, subject, body);
 
     // Retornar el id de sesión y un mensaje
@@ -83,7 +84,8 @@ export async function initiatePayment(data: PaymentData) {
  * Confirma el pago dado un sessionId y un token:
  *  - Consulta el pago pendiente en la base de datos.
  *  - Verifica expiración y validez del token.
- *  - Si es correcto, descuenta el monto de la billetera y elimina el registro pendiente.
+ *  - Si es correcto, descuenta el monto de la billetera, elimina el pendiente
+ *    y almacena el pago exitoso en la tabla Payments.
  */
 export async function confirmPayment(sessionId: string, token: string) {
     const pending = await PendingPayment.findOne({ where: { sessionId } });
@@ -112,6 +114,13 @@ export async function confirmPayment(sessionId: string, token: string) {
     );
     const newBalance = currentBalance - pending.getDataValue("amount");
     await wallet.update({ balance: Number(newBalance.toFixed(2)) });
+
+    // Registrar el pago exitoso en la tabla Payments
+    await Payment.create({
+        sessionId: pending.getDataValue("sessionId"),
+        amount: pending.getDataValue("amount"),
+        customerId: pending.getDataValue("customerId"),
+    });
 
     // Eliminar el registro pendiente
     await pending.destroy();
